@@ -1,1 +1,246 @@
 
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 25px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Padauk', sans-serif;
+  background: linear-gradient(180deg,#241638,#572747,#b75c78);
+  color: #75445d;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(#fff1bd 1px,transparent 1px),
+                    radial-gradient(#fff 1px,transparent 1px);
+  background-size: 45px 45px,70px 70px;
+}
+
+.container {
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  padding: 85px 0 65px;
+  z-index: 2;
+}
+
+.lantern {
+  position: absolute;
+  top: 0;
+  width: 45px;
+  height: 62px;
+  border-radius: 12px 12px 16px 16px;
+  background: linear-gradient(90deg,#e64f61,#ffe19a,#e64f61);
+  box-shadow: 0 0 30px #ffbc5b99;
+  animation: swing 3s infinite ease-in-out;
+}
+
+.lantern::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 35px;
+  background: #e8c98e;
+  top: -35px;
+  left: 22px;
+}
+
+.left { left: 10%; }
+.right {
+  right: 10%;
+  top: 15px;
+  background: linear-gradient(90deg,#c75cdb,#ffe19a,#c75cdb);
+  animation-delay: -1.5s;
+}
+
+.card {
+  background: linear-gradient(145deg,#fffaf0,#ffe4ef);
+  border: 2px solid #ffe2a4;
+  border-radius: 26px;
+  padding: 25px 20px;
+  text-align: center;
+  box-shadow: 0 10px 35px #130b2780;
+  animation: appear .6s ease;
+}
+
+.emoji { font-size: 35px; }
+
+.message {
+  white-space: pre-line;
+  font-size: 16px;
+  line-height: 2;
+  overflow-wrap: anywhere;
+}
+
+button {
+  margin-top: 22px;
+  border: 0;
+  border-radius: 30px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg,#ff9fc2,#e4a5ee);
+  color: #713957;
+  font-family: inherit;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.candles {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.candle {
+  position: relative;
+  height: 35px;
+  width: 21px;
+  border-radius: 5px;
+  background: linear-gradient(90deg,#dba5a0,#fff1d4,#e6b0a4);
+}
+
+.flame {
+  position: absolute;
+  width: 13px;
+  height: 20px;
+  left: 4px;
+  top: -22px;
+  border-radius: 80% 10% 70% 50%;
+  transform: rotate(45deg);
+  background: linear-gradient(#fffbd1,#ffce54,#ff884c);
+  box-shadow: 0 0 18px #ffc64f;
+  animation: flicker .7s infinite alternate;
+}
+
+@keyframes swing {
+  0%,100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes flicker {
+  from { opacity: .8; scale: .95; }
+  to { opacity: 1; scale: 1.08; }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+<div class="stars"></div>
+
+<div class="container">
+  <div class="lantern left"></div>
+  <div class="lantern right"></div>
+
+  <div class="card" id="card">
+    <div class="emoji" id="emoji">🏮🪔🌕🪔🏮</div>
+    <div class="message" id="message"></div>
+    <button id="next">Tap to Continue 💌</button>
+  </div>
+
+  <div class="candles">
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+  </div>
+</div>
+
+<script>
+const pages = [
+{
+emoji:"🙏🏻💗",
+message:`ချန်နယ်ထဲက ချစ်ရတဲ့ အချစ်လေးတို့ရေ… မွှေစိန်လေးက ကန်တော့ပါတယ်နော် 🥹🫶🏻
+
+မွှေစိန် မငြိမ်မသက် မွှေချင်တိုင်းမွှေ၊ ပေါချင်တိုင်းပေါနဲ့ အားလုံးကို စိတ်ရှုပ်အောင်လုပ်မိတာလေးတွေ၊ ပြောမိဆိုမိတာလေးတွေရှိခဲ့ရင် ခွင့်လွှတ်ပေးကြပါဦးနော်။ 🥺🤍
+
+ကိုယ့်ရဲ့ အမွှေတွေကို သည်းခံပေးကြလို့၊ ကိုယ်ပေါနေတာတွေကို လက်ခံပေးကြလို့ အားလုံးကို တကယ်ကျေးဇူးတင်ပါတယ် 😭🙌
+
+ဘာပဲဖြစ်ဖြစ် ဒီချန်နယ်လေးမှာ အားလုံးနဲ့ဆုံတွေ့ခွင့်ရတာ၊ ရင်းနှီးခွင့်ရတာ၊ အတူတူစနောက်ရယ်မောခွင့်ရတာတွေကို တကယ်တန်ဖိုးထားပါတယ်ရှင်..😭💞
+
+မွှေစိန်မသိလိုက်ဘဲ တစ်ယောက်ယောက်ကို စိတ်အနှောင့်အယှက်ဖြစ်စေခဲ့တာရှိရင်လည်း တောင်းပန်ပါတယ်နော်... စိတ်ထဲမှာ မကောင်းတာလေးတွေရှိခဲ့ရင် ပြေလျော့ပေးပြီး ခွင့်လွှတ်ပေးကြပါဦးရှင် 🙏🏻🥹
+
+အားလုံးလည်း စိတ်ချမ်းသာ ကိုယ်ကျန်းမာပြီး လိုချင်တာမှန်သမျှ ရရှိပိုင်ဆိုင်နိုင်ကြပါစေရှင်.. စိတ်ညစ်စရာတွေ ကင်းဝေးပြီး နေ့ရက်တိုင်း ပျော်ရွှင်ရပါစေနော်.. 💐🤍
+
+အားလုံးကို အရမ်းချစ်ပါတယ်..😭😭🫶
+အကြာကြီးလည်း ရင်းနှီးသွားချင်ပါတယ်ရှင်..🥹🙌
+
+ကန်တော့ပါတယ်နော် အချစ်လေးတို့ရေ...🙏🙏🫶`
+},
+{
+emoji:"🫶🏻🌸🙏🏻",
+message:`ချန်နယ်ထဲက အုံ"တို့ Admin တွေရယ်.. မမရယ်.. သမီးရယ်... အားလုံးကိုလည်း ကန်တော့ပါတယ်နော်..
+
+ပြောမှားဆိုမှားရှိခဲ့ရင် ခွင့်လွှတ်ပေးကြပါနော်။
+
+အသက်အရွယ်အရ ငယ်တဲ့သူတွေပါပေမယ့်လည်း ကန်တော့လိုက်ပါတယ်ရှင်... 🙏🙏🫶
+
+နောက်လည်း အကြာကြီး ခင်သွားချင်ပါတယ် 😭😭😭🫶 အာဘွား 😭😗`
+},
+{
+emoji:"🌕🏮🪔",
+message:`ပျော်ရွှင်စရာ သီတင်းကျွတ်လေးဖြစ်ပါစေရှင် 🫶🫶
+
+အားလုံး ကိုယ်စိတ်နှစ်ဖြာ ကျန်းမာချမ်းသာပြီး လိုအင်ဆန္ဒမှန်သမျှ ပြည့်ဝကြပါစေ..
+
+စိတ်ညစ်စရာတွေ ကင်းဝေးပြီး နေ့ရက်တိုင်းကို အပြုံးတွေနဲ့ ဖြတ်သန်းနိုင်ကြပါစေလို့ ဆုတောင်းပေးလိုက်ပါတယ် 💗✨`
+}
+];
+
+let page = 0;
+const message = document.getElementById("message");
+const emoji = document.getElementById("emoji");
+const button = document.getElementById("next");
+const card = document.getElementById("card");
+
+function render() {
+  card.style.animation = "none";
+  void card.offsetWidth;
+  card.style.animation = "appear .6s ease";
+
+  emoji.textContent = pages[page].emoji;
+  message.textContent = pages[page].message;
+
+  if (page < pages.length - 1) {
+    button.style.display = "inline-block";
+    button.textContent = "Tap to Continue 💌";
+    button.onclick = () => {
+      page++;
+      render();
+      window.scrollTo({top:0, behavior:"smooth"});
+    };
+  } else {
+    button.textContent = "Happy Thadingyut 🌕💗";
+    button.onclick = () => {
+      button.style.display = "none";
+    };
+  }
+}
+
+render();
+</script>
+</body>
+</html>
+
